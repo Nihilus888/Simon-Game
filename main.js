@@ -1,5 +1,5 @@
 //initialize computer and human sequence to compare later
-let computer = [];
+let computer = [1];
 let player = [];
 let life = 5;
 let levels = 0;
@@ -9,7 +9,7 @@ startButton = document.querySelector('#start');
 
 //when button is clicked on, game starts and runs
 startButton.addEventListener('click', (event) => {
-    //start game function
+    //play game function
     console.log('Hello there');
 })
 
@@ -101,11 +101,60 @@ function gameOver() {
     }
 }
 
-//Check function to see if both arrays are the same
+//Check function to see if both arrays are the same, increment the level if they are the same and remain on the same level if they are not
+function check() {
+    if (JSON.stringify(player) === JSON.stringify(computer)) {
+        levels++;
+        random();
+    } 
+
+    if (JSON.stringify(player) !== JSON.stringify(computer)) {
+        levels = levels;
+        random();
+    } else {
+        return;
+    }
+}
 
 //Reset game function to set everything back to its initial state
+function reset() {
+    computer = [];
+    player = [];
+    life = 5;
+    levels = 0;
+    //add any other initializing variables later
+}
 
 //Computer turn function
+function computerTurn() {
+    //disable clicking when this function is invoked
+    random();
+    //flash the colours by splitting the array into its individual components, set an interval between the flashes
+    for (let i = 0; i < computer.length; i++) {
+        if (computer[i] === 1) {
+            yellowButton.style.background = 'lightyellow';
+            console.log('yellow');
+        }
+        
+        if (computer[i] === 2) {
+            blueButton.style.background = 'darkblue';
+            console.log('blue');
+        }
+
+        if (computer[i] === 3) {
+            greenButton.style.background = 'lightgreen';      
+            console.log('green');
+        }
+
+        if (computer[i] === 4) {
+            redButton.style.background = 'pink';
+            console.log('red');
+        }
+    }
+}
+
+
+
 
 //Human turn function
 
