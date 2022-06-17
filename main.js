@@ -189,6 +189,7 @@ function computerTurn() {
 
 
 //Human turn function with a timer function
+//check with eugene 
 function playerTurn() {
     if(player.length !== computer.length) {
         yellow();
