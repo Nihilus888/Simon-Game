@@ -1,8 +1,8 @@
 //initialize computer and human sequence to compare later
-let computer = [1];
+let computer = [1, 2, 3, 4];
 let player = [];
 let life = 5;
-let levels = 0;
+let levels = 1;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -18,6 +18,7 @@ yellowButton = document.querySelector('#yellow-button');
 blueButton = document.querySelector('#blue-button');
 greenButton = document.querySelector('#green-button');
 redButton = document.querySelector('#red-button');
+informationButton = document.querySelector('#information');
 
 //Display Levels
 displayLevel = document.querySelector('#display-level');
@@ -30,7 +31,7 @@ displayLife.innerHTML = 'Life: ' + life;
 //flash colour functions to use when in need of flashing colours
 function flashColour() {
     yellowButton.style.background = 'lightyellow';
-    blueButton.style.background = 'darkblue';
+    blueButton.style.background = 'lightblue';
     greenButton.style.background = 'lightgreen';
     redButton.style.background = 'pink';
 }
@@ -38,7 +39,7 @@ function flashColour() {
 //Sets the colours back to normal after flashing
 function clearColour() {
     yellowButton.style.background = 'rgb(204, 204, 0)';
-    blueButton.style.background = 'skyblue';
+    blueButton.style.background = 'darkblue';
     greenButton.style.background = 'rgb(0, 128, 0)';
     redButton.style.background = 'rgb(227, 0, 34)';
 }
@@ -54,6 +55,10 @@ function random() {
 //Yellow button onclick, record it and push it into the player array
 function yellow() {
     yellowButton.addEventListener('click', (event) => {
+        yellowButton.style.background = 'lightyellow';
+        setTimeout(function() {
+            yellowButton.style.background = 'rgb(204, 204, 0)';
+        }, 300);
         player.push(1);
     }) 
 }
@@ -61,6 +66,10 @@ function yellow() {
 //Blue button onclick, record it and push it into the player array
 function blue() {
     blueButton.addEventListener('click', (event) => {
+        blueButton.style.background = 'lightblue';
+        setTimeout(function() {
+            blueButton.style.background = 'darkblue';
+        }, 300);
         player.push(2);
     }) 
 }
@@ -68,13 +77,22 @@ function blue() {
 //Green button onclick, record it and push it into the player array
 function green() {
     greenButton.addEventListener('click', (event) => {
+        greenButton.style.background = 'lightgreen';
+        setTimeout(function() {
+            greenButton.style.background = 'rgb(0, 128, 0)';
+        }, 300);   
         player.push(3);
     }) 
 }
 
+
 //Red button onclick, record it and push it into the player array
 function red() {
     redButton.addEventListener('click', (event) => {
+        redButton.style.background = 'pink';
+        setTimeout(function() {
+            redButton.style.background = 'rgb(227, 0, 34)';
+        }, 300);  
         player.push(4);
     })
 }
@@ -122,41 +140,63 @@ function reset() {
     player = [];
     life = 5;
     levels = 0;
+    clearColour();
     //add any other initializing variables later
 }
 
 //Computer turn function
 function computerTurn() {
     //disable clicking when this function is invoked
-    random();
-    //flash the colours by splitting the array into its individual components, set an interval between the flashes
-    for (let i = 0; i < computer.length; i++) {
-        if (computer[i] === 1) {
-            yellowButton.style.background = 'lightyellow';
-            console.log('yellow');
-        }
-        
-        if (computer[i] === 2) {
-            blueButton.style.background = 'darkblue';
-            console.log('blue');
-        }
-
-        if (computer[i] === 3) {
-            greenButton.style.background = 'lightgreen';      
-            console.log('green');
-        }
-
-        if (computer[i] === 4) {
-            redButton.style.background = 'pink';
-            console.log('red');
+    runLoop = async() => {
+        for (const item of computer) {
+            await new Promise (resolve => setTimeout(resolve, 2000))
+            console.log(item);
+            if (item === 1) {
+                yellowButton.style.background = 'lightyellow';
+                setTimeout(function() {
+                yellowButton.style.background = 'rgb(204, 204, 0)';}
+                , 1000);  
+                console.log('yellow');
+            }
+            
+            if (item === 2) {
+                blueButton.style.background = 'lightblue';
+                setTimeout(function() {
+                    blueButton.style.background = 'darkblue';
+                }, 1000);
+                console.log('blue');
+            }
+    
+            if (item === 3) {
+                greenButton.style.background = 'lightgreen';
+                setTimeout(function() {
+                    greenButton.style.background = 'rgb(0, 128, 0)';
+                }, 1000);      
+                console.log('green');
+            }
+    
+            if (item === 4) {
+                redButton.style.background = 'pink';
+                setTimeout(function() {redButton.style.background = 'rgb(227, 0, 34)';
+                }, 1000);
+                console.log('red');
+            }
         }
     }
+
+    runLoop()
 }
 
 
-
-
-//Human turn function
+//Human turn function with a timer function
+function playerTurn() {
+    if(player.length !== computer.length) {
+        yellow();
+        green();
+        blue();
+        red();
+    }
+}
 
 //Play function
 
