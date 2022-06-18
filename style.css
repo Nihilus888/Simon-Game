@@ -13,7 +13,7 @@ body {
 
 p {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px; 
+    font-size: 20px;
     padding-top: 10px;
     margin-left: 8%;
 }
@@ -24,7 +24,7 @@ p {
     font-size: 30px;
     font-weight: 500;
     margin-top: -45px;
-    color:rgb(227, 0, 34);
+    color: rgb(227, 0, 34);
 }
 
 #name {
@@ -117,7 +117,7 @@ p {
     left: 50%;
     margin: -125px 0px 0px -125px;
     box-sizing: border-box;
-  }
+}
 
 #title {
     position: absolute;
@@ -151,7 +151,7 @@ p {
     color: blue;
     text-align: left;
     position: absolute;
-    left: 80px; 
+    left: 80px;
     bottom: 150px;
     border: 2px solid black;
     padding: 10px;
@@ -162,11 +162,11 @@ h2 {
     color: blue;
     text-align: right;
     position: absolute;
-    right: 50px; 
+    right: 50px;
     bottom: 50%;
     border: 3px solid black;
     padding: 40px 75px 200px 75px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
     font-size: 25px;
 }
@@ -175,7 +175,7 @@ h2 {
     position: absolute;
     text-align: center;
     text-justify: inter-word;
-    right: 75px; 
+    right: 75px;
     bottom: 60%;
     padding: 30px;
     width: 25%;
@@ -212,5 +212,3 @@ h2 {
     right: 280px;
     bottom: 12%;
 }
-
-

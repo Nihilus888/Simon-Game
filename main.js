@@ -1,8 +1,8 @@
 //initialize computer and human sequence to compare later
-const computer = [];
-const player = [];
-const life = 5;
-const levels = 0;
+let computer = [1, 2, 3];
+let player = [];
+let life = 5;
+let levels = 0;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -61,7 +61,7 @@ function clearColour() {
 //Randomizes array for up to 30 levels
 function random() {
     const array = ['yellowButton', 'blueButton', 'greenButton', 'redButton'];
-    for(let i = 0; i < levels; i++) {
+    for (let i = 0; i < levels; i++) {
         computer.push(Math.floor(Math.random() * 4) + 1);
     }
 }
@@ -70,33 +70,33 @@ function random() {
 function yellow() {
     yellowButton.addEventListener('click', (event) => {
         yellowButton.style.background = 'lightyellow';
-        setTimeout(function() {
+        setTimeout(function () {
             yellowButton.style.background = 'rgb(204, 204, 0)';
         }, 300);
         player.push(1);
-    }) 
+    })
 }
 
 //Blue button onclick, record it and push it into the player array
 function blue() {
     blueButton.addEventListener('click', (event) => {
         blueButton.style.background = 'lightblue';
-        setTimeout(function() {
+        setTimeout(function () {
             blueButton.style.background = 'darkblue';
         }, 300);
         player.push(2);
-    }) 
+    })
 }
 
 //Green button onclick, record it and push it into the player array
 function green() {
     greenButton.addEventListener('click', (event) => {
         greenButton.style.background = 'lightgreen';
-        setTimeout(function() {
+        setTimeout(function () {
             greenButton.style.background = 'rgb(0, 128, 0)';
-        }, 300);   
+        }, 300);
         player.push(3);
-    }) 
+    })
 }
 
 
@@ -104,9 +104,9 @@ function green() {
 function red() {
     redButton.addEventListener('click', (event) => {
         redButton.style.background = 'pink';
-        setTimeout(function() {
+        setTimeout(function () {
             redButton.style.background = 'rgb(227, 0, 34)';
-        }, 300);  
+        }, 300);
         player.push(4);
     })
 }
@@ -138,7 +138,7 @@ function check() {
     if (JSON.stringify(player) === JSON.stringify(computer)) {
         levels++;
         random();
-    } 
+    }
 
     if (JSON.stringify(player) !== JSON.stringify(computer)) {
         levels = levels;
@@ -161,37 +161,39 @@ function reset() {
 //Computer turn function
 function computerTurn() {
     //disable clicking when this function is invoked
-    runLoop = async() => {
+    runLoop = async () => {
         for (const item of computer) {
-            await new Promise (resolve => setTimeout(resolve, 2000))
+            await new Promise(resolve => setTimeout(resolve, 2000))
             console.log(item);
             if (item === 1) {
                 yellowButton.style.background = 'lightyellow';
-                setTimeout(function() {
-                yellowButton.style.background = 'rgb(204, 204, 0)';}
-                , 1000);  
+                setTimeout(function () {
+                    yellowButton.style.background = 'rgb(204, 204, 0)';
+                }
+                    , 1000);
                 console.log('yellow');
             }
-            
+
             if (item === 2) {
                 blueButton.style.background = 'lightblue';
-                setTimeout(function() {
+                setTimeout(function () {
                     blueButton.style.background = 'darkblue';
                 }, 1000);
                 console.log('blue');
             }
-    
+
             if (item === 3) {
                 greenButton.style.background = 'lightgreen';
-                setTimeout(function() {
+                setTimeout(function () {
                     greenButton.style.background = 'rgb(0, 128, 0)';
-                }, 1000);      
+                }, 1000);
                 console.log('green');
             }
-    
+
             if (item === 4) {
                 redButton.style.background = 'pink';
-                setTimeout(function() {redButton.style.background = 'rgb(227, 0, 34)';
+                setTimeout(function () {
+                    redButton.style.background = 'rgb(227, 0, 34)';
                 }, 1000);
                 console.log('red');
             }
@@ -201,49 +203,75 @@ function computerTurn() {
     runLoop()
 }
 
+function checkPlayerRound() {
+    console.log('has player finish turn:', player.length === computer.length)
+    const hasGameEnd = player.length === computer.length;
+    if (hasGameEnd) {
+        yellowButton.removeEventListener('click', yellowButtonClick);
+        blueButton.removeEventListener('click', blueButtonClick);
+        greenButton.removeEventListener('click', greenButtonClick);
+        redButton.removeEventListener('click', redButtonClick);
+    }
+}
 
+function yellowButtonClick() {
+    yellowButton.style.background = 'lightyellow';
+    setTimeout(function () {
+        yellowButton.style.background = 'rgb(204, 204, 0)';
+    }, 300);
+    player.push(1);
+
+    checkPlayerRound() // --> might not be a good name 
+
+    console.log(player);
+}
+
+function blueButtonClick() {
+    blueButton.style.background = 'lightblue';
+    setTimeout(function () {
+        blueButton.style.background = 'darkblue';
+    }, 300);
+    player.push(2);
+
+    checkPlayerRound()
+    console.log(player);
+}
+
+function greenButtonClick() {
+    greenButton.style.background = 'lightgreen';
+    setTimeout(function () {
+        greenButton.style.background = 'rgb(0, 128, 0)';
+    }, 300);
+    player.push(3);
+
+    checkPlayerRound() // --> might not be a good name 
+
+    console.log(player);
+}
+
+function redButtonClick() {
+    redButton.style.background = 'pink';
+    setTimeout(function () {
+        redButton.style.background = 'rgb(227, 0, 34)';
+    }, 300);
+    player.push(4);
+
+    checkPlayerRound() // --> might not be a good name 
+
+    console.log(player);
+}
 //Human turn function with a timer function
 //check with eugene or kiong
 function playerTurn() {
-    let random1 = [];
-    let random2 = [];
-    if(random1.length !== random2.length) {
-        yellowButton.addEventListener('click', (event) => {
-            yellowButton.style.background = 'lightyellow';
-            setTimeout(function() {
-                yellowButton.style.background = 'rgb(204, 204, 0)';
-            }, 300);
-            random2.push(1);
-            console.log(random2);
-            });
+    // if (player.length !== computer.length) {
+    // }
+    yellowButton.addEventListener('click', yellowButtonClick);
 
-        blueButton.addEventListener('click', (event) => {
-            blueButton.style.background = 'lightblue';
-            setTimeout(function() {
-            blueButton.style.background = 'darkblue';
-            }, 300);
-            player.push(2);
-            console.log(player);
-            });
+    blueButton.addEventListener('click', blueButtonClick);
 
-        greenButton.addEventListener('click', (event) => {
-            greenButton.style.background = 'lightgreen';
-            setTimeout(function() {
-            greenButton.style.background = 'rgb(0, 128, 0)';
-            }, 300);   
-            player.push(3);
-            console.log(player);
-        }); 
+    greenButton.addEventListener('click', greenButtonClick);
 
-        redButton.addEventListener('click', (event) => {
-            redButton.style.background = 'pink';
-            setTimeout(function() {
-            redButton.style.background = 'rgb(227, 0, 34)';
-            }, 300);  
-            player.push(4);
-            console.log(player);
-            });  
-    }
+    redButton.addEventListener('click', redButtonClick);
 }
 
 console.log(playerTurn());
@@ -259,28 +287,28 @@ motivationButton.addEventListener('click', (event) => {
     const quotesDiv = document.querySelector('#quotes')
 
     const motivationalQuotes = ['Aristotle: Quality is not an act but a habit'
-                ,'Lao Tzu: The journey of a thousand miles begins with one step'
-                , 'Epictecus: It is not what happens to you, but how you react to it that matters'
-                , 'Arthur Schopenhaeur: Talent hits a target that no one can hit, genius hits a target that no one can see'
-                , 'Freidrich Engle: An ounce of action is worth a ton of theory'
-                , 'John Dewey: Education is not preperation for life; education is life itself'
-                , 'Rene Descartes: I think, therefore I am'
-                , 'Socrates: There is only one good, knowledge, and one evil, ignorance'
-                , 'Soren Kierkegaard: Life can only be understood backwards but must be lived forward'
-                , 'Epicurus: The greater the difficulty, the more glory in summounting it'
-                , 'Spnioza: I can control my passions and emotions if I can understand their nature'
-                , 'Seneca: Virtue is nothing else than right reason'
-                , 'Democritus: The brave man is he who overcomes not only his enemies but his pleasures'
-                , 'John Locke: The mind is furnished with ideas by experience alone'
-                , 'Aristotle: The mark of an educated mind to be able to entertain a thought without accepting it'
-                , 'Soren Kierkegaard: Nothing ventured, nothing gained'
-                , 'Fredriech Nietzsche: He who has a why, can bear almost any how'
-                , 'Jordan Peterson: If you fulfill your obligations everyday, you dont need to worry about the future'
-                , 'Carl Jung: I am not what happened to me, I am what I choose to be'
-                , 'Socrates: The unexamined life is not worth living'
-                , 'Seneca: What need is there to weep over parts of life? The whole of it calls for tears']
+        , 'Lao Tzu: The journey of a thousand miles begins with one step'
+        , 'Epictecus: It is not what happens to you, but how you react to it that matters'
+        , 'Arthur Schopenhaeur: Talent hits a target that no one can hit, genius hits a target that no one can see'
+        , 'Freidrich Engle: An ounce of action is worth a ton of theory'
+        , 'John Dewey: Education is not preperation for life; education is life itself'
+        , 'Rene Descartes: I think, therefore I am'
+        , 'Socrates: There is only one good, knowledge, and one evil, ignorance'
+        , 'Soren Kierkegaard: Life can only be understood backwards but must be lived forward'
+        , 'Epicurus: The greater the difficulty, the more glory in summounting it'
+        , 'Spnioza: I can control my passions and emotions if I can understand their nature'
+        , 'Seneca: Virtue is nothing else than right reason'
+        , 'Democritus: The brave man is he who overcomes not only his enemies but his pleasures'
+        , 'John Locke: The mind is furnished with ideas by experience alone'
+        , 'Aristotle: The mark of an educated mind to be able to entertain a thought without accepting it'
+        , 'Soren Kierkegaard: Nothing ventured, nothing gained'
+        , 'Fredriech Nietzsche: He who has a why, can bear almost any how'
+        , 'Jordan Peterson: If you fulfill your obligations everyday, you dont need to worry about the future'
+        , 'Carl Jung: I am not what happened to me, I am what I choose to be'
+        , 'Socrates: The unexamined life is not worth living'
+        , 'Seneca: What need is there to weep over parts of life? The whole of it calls for tears']
 
-        quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
+    quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
 })
 
 //wildCard functions to reward the user for their accomplishment thus far
@@ -290,14 +318,16 @@ function wildCard() {
     const wildCardDescription = document.querySelector('#wildcard-description');
     wildCardDiv.innerText = wildcards[Math.floor((Math.random() * wildcards.length))];
     if (wildCardDiv.innerText === 'Skip the level') {
-        level++;
+        console.log('Bye');
+        levels++;
         console.log(level);
         player = [];
         computer = [];
         wildCardDescription.innerText = 'Level skipped';
     }
 
-    if(wildCardDiv.innerText === 'Gain an extra life') {
+    if (wildCardDiv.innerText === 'Gain an extra life') {
+        console.log('Hello');
         life++;
         console.log(life);
         wildCardDescription.innerText = 'Extra life gained';
