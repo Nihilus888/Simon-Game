@@ -177,7 +177,7 @@ h2 {
 }
 
 #motivation {
-    position: absolute;
+    position: relative;
     text-align: center;
     right: 200px;
     bottom: 45%;

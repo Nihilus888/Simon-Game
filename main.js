@@ -7,6 +7,13 @@ let levels = 1;
 //start game function
 startButton = document.querySelector('#start');
 
+//Username log in function
+let name = window.prompt("Enter your name: ");
+alert("Your name is " + name);
+displayName = document.querySelector('#name');
+console.log(displayName);
+displayName.innerText = "Name: " + name;
+
 //when button is clicked on, game starts and runs
 startButton.addEventListener('click', (event) => {
     //play game function
