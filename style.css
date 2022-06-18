@@ -163,22 +163,54 @@ h2 {
     text-align: right;
     position: absolute;
     right: 50px; 
-    bottom: 30%;
+    bottom: 50%;
     border: 3px solid black;
-    padding: 50px 100px 200px 100px;
+    padding: 40px 75px 200px 75px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 #quotes {
     position: absolute;
     text-align: center;
-    right: 250px; 
-    bottom: 50%;
+    text-justify: inter-word;
+    right: 75px; 
+    bottom: 60%;
     padding: 30px;
+    width: 25%;
+    margin-top: 10px;
+    font-family: fantasy;
+    font-size: 17px;
+    font-weight: 300;
 }
 
 #motivation {
-    position: relative;
+    position: absolute;
     text-align: center;
     right: 200px;
-    bottom: 45%;
+    bottom: 55%;
+    font-weight: 300;
 }
+
+#wildcard {
+    position: absolute;
+    right: 200px;
+    bottom: 10%;
+    border: 2px solid black;
+    padding: 0px 75px 125px 75px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 25px;
+}
+
+#wildcard-type {
+    position: absolute;
+}
+
+#wildcard-button {
+    position: absolute;
+    right: 280px;
+    bottom: 12%;
+}
+
+

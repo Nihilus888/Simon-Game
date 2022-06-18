@@ -1,22 +1,25 @@
 //initialize computer and human sequence to compare later
-let computer = [1, 2, 3, 4];
-let player = [];
-let life = 5;
-let levels = 1;
+const computer = [];
+const player = [];
+const life = 5;
+const levels = 0;
 
 //start game function
 startButton = document.querySelector('#start');
+motivationButton = document.querySelector('#motivation')
 
 //Username log in function
-let name = window.prompt("Enter your name: ");
-alert("Your name is " + name);
-displayName = document.querySelector('#name');
-console.log(displayName);
-displayName.innerText = "Name: " + name;
+//let name = window.prompt("Enter your name: ");
+//alert("Your name is " + name);
+//displayName = document.querySelector('#name');
+//displayName.innerText = "Name: " + name;
 
+informationButton = document.querySelector('#information');
+informationButton.innerText = 'Status: Game not started yet'
 //when button is clicked on, game starts and runs
 startButton.addEventListener('click', (event) => {
     //play game function
+    informationButton.innerText = 'Status: Game has started;'
     console.log('Hello there');
 })
 
@@ -29,7 +32,11 @@ informationButton = document.querySelector('#information');
 
 //Display Levels
 displayLevel = document.querySelector('#display-level');
-displayLevel.innerText = levels;
+if (levels === 0) {
+    displayLevel.innerText = "-"
+} else {
+    displayLevel.innerText = levels;
+}
 
 //Display Life
 displayLife = document.querySelector('#life');
@@ -196,16 +203,109 @@ function computerTurn() {
 
 
 //Human turn function with a timer function
-//check with eugene 
+//check with eugene or kiong
 function playerTurn() {
-    if(player.length !== computer.length) {
-        yellow();
-        green();
-        blue();
-        red();
+    let random1 = [];
+    let random2 = [];
+    if(random1.length !== random2.length) {
+        yellowButton.addEventListener('click', (event) => {
+            yellowButton.style.background = 'lightyellow';
+            setTimeout(function() {
+                yellowButton.style.background = 'rgb(204, 204, 0)';
+            }, 300);
+            random2.push(1);
+            console.log(random2);
+            });
+
+        blueButton.addEventListener('click', (event) => {
+            blueButton.style.background = 'lightblue';
+            setTimeout(function() {
+            blueButton.style.background = 'darkblue';
+            }, 300);
+            player.push(2);
+            console.log(player);
+            });
+
+        greenButton.addEventListener('click', (event) => {
+            greenButton.style.background = 'lightgreen';
+            setTimeout(function() {
+            greenButton.style.background = 'rgb(0, 128, 0)';
+            }, 300);   
+            player.push(3);
+            console.log(player);
+        }); 
+
+        redButton.addEventListener('click', (event) => {
+            redButton.style.background = 'pink';
+            setTimeout(function() {
+            redButton.style.background = 'rgb(227, 0, 34)';
+            }, 300);  
+            player.push(4);
+            console.log(player);
+            });  
     }
 }
 
+console.log(playerTurn());
+
 //Play function
+
+
+//End game function to thank players
+
+//Motivational button 
+//Need to subscribe check with it later 
+motivationButton.addEventListener('click', (event) => {
+    const quotesDiv = document.querySelector('#quotes')
+
+    const motivationalQuotes = ['Aristotle: Quality is not an act but a habit'
+                ,'Lao Tzu: The journey of a thousand miles begins with one step'
+                , 'Epictecus: It is not what happens to you, but how you react to it that matters'
+                , 'Arthur Schopenhaeur: Talent hits a target that no one can hit, genius hits a target that no one can see'
+                , 'Freidrich Engle: An ounce of action is worth a ton of theory'
+                , 'John Dewey: Education is not preperation for life; education is life itself'
+                , 'Rene Descartes: I think, therefore I am'
+                , 'Socrates: There is only one good, knowledge, and one evil, ignorance'
+                , 'Soren Kierkegaard: Life can only be understood backwards but must be lived forward'
+                , 'Epicurus: The greater the difficulty, the more glory in summounting it'
+                , 'Spnioza: I can control my passions and emotions if I can understand their nature'
+                , 'Seneca: Virtue is nothing else than right reason'
+                , 'Democritus: The brave man is he who overcomes not only his enemies but his pleasures'
+                , 'John Locke: The mind is furnished with ideas by experience alone'
+                , 'Aristotle: The mark of an educated mind to be able to entertain a thought without accepting it'
+                , 'Soren Kierkegaard: Nothing ventured, nothing gained'
+                , 'Fredriech Nietzsche: He who has a why, can bear almost any how'
+                , 'Jordan Peterson: If you fulfill your obligations everyday, you dont need to worry about the future'
+                , 'Carl Jung: I am not what happened to me, I am what I choose to be'
+                , 'Socrates: The unexamined life is not worth living'
+                , 'Seneca: What need is there to weep over parts of life? The whole of it calls for tears']
+
+        quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
+})
+
+//wildCard functions to reward the user for their accomplishment thus far
+function wildCard() {
+    const wildcards = ['Skip the level', 'Gain an extra life'];
+    const wildCardDiv = document.querySelector('#wildcard-type');
+    const wildCardDescription = document.querySelector('#wildcard-description');
+    wildCardDiv.innerText = wildcards[Math.floor((Math.random() * wildcards.length))];
+    if (wildCardDiv.innerText === 'Skip the level') {
+        level++;
+        console.log(level);
+        player = [];
+        computer = [];
+        wildCardDescription.innerText = 'Level skipped';
+    }
+
+    if(wildCardDiv.innerText === 'Gain an extra life') {
+        life++;
+        console.log(life);
+        wildCardDescription.innerText = 'Extra life gained';
+    }
+}
+
+//Wildcard Button 
+
+
 
 
