@@ -1,8 +1,8 @@
 //initialize computer and human sequence to compare later
 let computer = [];
 let player = [];
-let life =  1;
-let levels = 1;
+let life = 5;
+let levels = 0;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -16,10 +16,17 @@ motivationButton = document.querySelector('#motivation')
 
 informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
+
 //when button is clicked on, game starts and runs
 startButton.addEventListener('click', (event) => {
-    informationButton.innerText = 'Status: Game has started;'
-    console.log('Hello there');
+    levels++;
+    if (levels === 0) {
+        displayLevel.innerText = "-"
+    } else {
+        displayLevel.innerText = levels;
+    }   
+    playGame();
+    informationButton.innerText = 'Status: Game has started';
 })
 
 //Initializing buttons for play
@@ -70,55 +77,46 @@ function random() {
 function win() {
     const winning = document.querySelector('#win');
     if (levels === 30) {
-        winning.innerText = "Congratulations you have won the game!";
-        //insert reset function here
+        alert("Congratulations you have won the game!");
+        resetGame();
     } else {
-        winning.innerText = "Game is in session";
+        return
     }
 }
 
 //Gameover function to end the game when the game is over
 function gameOver() {
     if (life === 0) {
-        alert("Gameover!")
+        alert("Game over!")
         resetGame();
-    }
-}
-
-//Check function to see if both arrays are the same, increment the level if they are the same and remain on the same level if they are not
-function check() {
-    if (JSON.stringify(player) === JSON.stringify(computer)) {
-        levels++;
-        random();
-        console.log('You are correct');
-    }
-
-    if (JSON.stringify(player) !== JSON.stringify(computer)) {
-        levels = levels;
-        random();
-        console.log('You are wrong');
     } else {
         return;
     }
 }
 
 //Reset game function to set everything back to its initial state
+//check with eugene to set how to reset the entire functions
 function resetGame() {
+    clearColour();
     computer = [];
     player = [];
     life = 5;
     levels = 0;
-    clearColour();
     yellowButton.removeEventListener('click', yellowButtonClick);
     blueButton.removeEventListener('click', blueButtonClick);
     greenButton.removeEventListener('click', greenButtonClick);
     redButton.removeEventListener('click', redButtonClick);
-    //add any other initializing variables later
+    informationButton.innerText = 'Status: Game not started yet'
 }
+
 
 //Computer turn function
 function computerTurn() {
     //disable clicking when this function is invoked
+    yellowButton.removeEventListener('click', yellowButtonClick);
+    blueButton.removeEventListener('click', blueButtonClick);
+    greenButton.removeEventListener('click', greenButtonClick);
+    redButton.removeEventListener('click', redButtonClick);
     runLoop = async () => {
         for (const item of computer) {
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -177,10 +175,10 @@ function checkPlayerRound() {
             life++;
             displayLife.innerHTML = 'Life: ' + life;
             nextRound();
+            win();
         }
 
         if (JSON.stringify(player) !== JSON.stringify(computer)) {
-            gameOver();
             player = [];
             life--;
             displayLife.innerHTML = 'Life: ' + life;
