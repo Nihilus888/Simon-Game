@@ -1,8 +1,8 @@
 //initialize computer and human sequence to compare later
-let computer = [1, 2, 3];
+let computer = [];
 let player = [];
-let life = 5;
-let levels = 0;
+let life =  1;
+let levels = 1;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -18,7 +18,6 @@ informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
 //when button is clicked on, game starts and runs
 startButton.addEventListener('click', (event) => {
-    //play game function
     informationButton.innerText = 'Status: Game has started;'
     console.log('Hello there');
 })
@@ -63,58 +62,13 @@ function random() {
     const array = ['yellowButton', 'blueButton', 'greenButton', 'redButton'];
     for (let i = 0; i < levels; i++) {
         computer.push(Math.floor(Math.random() * 4) + 1);
+        console.log(computer);
     }
-}
-
-//Yellow button onclick, record it and push it into the player array
-function yellow() {
-    yellowButton.addEventListener('click', (event) => {
-        yellowButton.style.background = 'lightyellow';
-        setTimeout(function () {
-            yellowButton.style.background = 'rgb(204, 204, 0)';
-        }, 300);
-        player.push(1);
-    })
-}
-
-//Blue button onclick, record it and push it into the player array
-function blue() {
-    blueButton.addEventListener('click', (event) => {
-        blueButton.style.background = 'lightblue';
-        setTimeout(function () {
-            blueButton.style.background = 'darkblue';
-        }, 300);
-        player.push(2);
-    })
-}
-
-//Green button onclick, record it and push it into the player array
-function green() {
-    greenButton.addEventListener('click', (event) => {
-        greenButton.style.background = 'lightgreen';
-        setTimeout(function () {
-            greenButton.style.background = 'rgb(0, 128, 0)';
-        }, 300);
-        player.push(3);
-    })
-}
-
-
-//Red button onclick, record it and push it into the player array
-function red() {
-    redButton.addEventListener('click', (event) => {
-        redButton.style.background = 'pink';
-        setTimeout(function () {
-            redButton.style.background = 'rgb(227, 0, 34)';
-        }, 300);
-        player.push(4);
-    })
 }
 
 //Win function to alert the user that they have already won
 function win() {
     const winning = document.querySelector('#win');
-    console.log(winning);
     if (levels === 30) {
         winning.innerText = "Congratulations you have won the game!";
         //insert reset function here
@@ -127,9 +81,7 @@ function win() {
 function gameOver() {
     if (life === 0) {
         alert("Gameover!")
-        //insert reset function
-    } else {
-        return
+        resetGame();
     }
 }
 
@@ -138,23 +90,29 @@ function check() {
     if (JSON.stringify(player) === JSON.stringify(computer)) {
         levels++;
         random();
+        console.log('You are correct');
     }
 
     if (JSON.stringify(player) !== JSON.stringify(computer)) {
         levels = levels;
         random();
+        console.log('You are wrong');
     } else {
         return;
     }
 }
 
 //Reset game function to set everything back to its initial state
-function reset() {
+function resetGame() {
     computer = [];
     player = [];
     life = 5;
     levels = 0;
     clearColour();
+    yellowButton.removeEventListener('click', yellowButtonClick);
+    blueButton.removeEventListener('click', blueButtonClick);
+    greenButton.removeEventListener('click', greenButtonClick);
+    redButton.removeEventListener('click', redButtonClick);
     //add any other initializing variables later
 }
 
@@ -203,6 +161,8 @@ function computerTurn() {
     runLoop()
 }
 
+//Player Round
+
 function checkPlayerRound() {
     console.log('has player finish turn:', player.length === computer.length)
     const hasGameEnd = player.length === computer.length;
@@ -211,6 +171,23 @@ function checkPlayerRound() {
         blueButton.removeEventListener('click', blueButtonClick);
         greenButton.removeEventListener('click', greenButtonClick);
         redButton.removeEventListener('click', redButtonClick);
+
+        if (JSON.stringify(player) === JSON.stringify(computer)) {
+            player = [];
+            life++;
+            displayLife.innerHTML = 'Life: ' + life;
+            nextRound();
+        }
+
+        if (JSON.stringify(player) !== JSON.stringify(computer)) {
+            gameOver();
+            player = [];
+            life--;
+            displayLife.innerHTML = 'Life: ' + life;
+            computerTurn();
+            playerTurn();
+            gameOver();
+        }
     }
 }
 
@@ -260,8 +237,9 @@ function redButtonClick() {
 
     console.log(player);
 }
-//Human turn function with a timer function
-//check with eugene or kiong
+
+//Human turn function 
+
 function playerTurn() {
     // if (player.length !== computer.length) {
     // }
@@ -274,15 +252,31 @@ function playerTurn() {
     redButton.addEventListener('click', redButtonClick);
 }
 
-console.log(playerTurn());
+//next round function  
+
+function nextRound() {
+    levels++
+    displayLevel.innerText = levels;
+    computer.push(Math.floor(Math.random() * 4) + 1);
+    computerTurn();
+    playerTurn();
+}
 
 //Play function
+
+function playGame() {
+    random();
+    computerTurn();
+    playerTurn();
+}
+
+console.log(playGame());
 
 
 //End game function to thank players
 
 //Motivational button 
-//Need to subscribe check with it later 
+
 motivationButton.addEventListener('click', (event) => {
     const quotesDiv = document.querySelector('#quotes')
 
@@ -312,29 +306,35 @@ motivationButton.addEventListener('click', (event) => {
 })
 
 //wildCard functions to reward the user for their accomplishment thus far
+const wildCardDiv = document.querySelector('#wildcard-type');
+const wildCardDescription = document.querySelector('#wildcard-description');
+
 function wildCard() {
     const wildcards = ['Skip the level', 'Gain an extra life'];
-    const wildCardDiv = document.querySelector('#wildcard-type');
-    const wildCardDescription = document.querySelector('#wildcard-description');
     wildCardDiv.innerText = wildcards[Math.floor((Math.random() * wildcards.length))];
     if (wildCardDiv.innerText === 'Skip the level') {
-        console.log('Bye');
         levels++;
-        console.log(level);
+        console.log(levels);
         player = [];
         computer = [];
         wildCardDescription.innerText = 'Level skipped';
     }
 
     if (wildCardDiv.innerText === 'Gain an extra life') {
-        console.log('Hello');
         life++;
-        console.log(life);
         wildCardDescription.innerText = 'Extra life gained';
     }
 }
 
+
 //Wildcard Button 
+wildcardButton = document.querySelector('#wildcard-button');
+
+if (life % 5 === 0) {
+    wildcardButton.addEventListener('click', wildCard);
+} else {
+    wildcardButton.removeEventListener('click', wildCard);
+}
 
 
 

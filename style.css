@@ -212,3 +212,10 @@ h2 {
     right: 280px;
     bottom: 12%;
 }
+
+#wildcard-description {
+    position: absolute;
+    right: 280px;
+    bottom: 22%;
+
+}
