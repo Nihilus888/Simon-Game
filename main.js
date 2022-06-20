@@ -7,12 +7,15 @@ let levels = 0;
 //start game function
 startButton = document.querySelector('#start');
 motivationButton = document.querySelector('#motivation')
+correctButton = document.querySelector('#correct');
 
 //Username log in function
-//let name = window.prompt("Enter your name: ");
-//alert("Your name is " + name);
-//displayName = document.querySelector('#name');
-//displayName.innerText = "Name: " + name;
+/*
+let name = window.prompt("Enter your name: ");
+alert("Your name is " + name);
+displayName = document.querySelector('#name');
+displayName.innerText = "Name: " + name;
+*/
 
 informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
@@ -24,12 +27,9 @@ startButton.addEventListener('click', (event) => {
         displayLevel.innerText = "-"
     } else {
         displayLevel.innerText = levels;
-    }   
-    playGame();
-    informationButton.innerText = 'Status: Game has started';
-    if (playGame === true){
-        startButton.removeEventListener('click', playGame());
+        informationButton.innerText = 'Status: Game has started';
     }
+    playGame();
 })
 
 //Initializing buttons for play
@@ -97,6 +97,7 @@ function gameOver() {
     }
 }
 
+
 //Reset game function to set everything back to its initial state
 //check with eugene to set how to reset the entire functions
 function resetGame() {
@@ -116,16 +117,12 @@ function resetGame() {
         displayLevel.innerText = "-"
     } else {
         displayLevel.innerText = levels;
-    }   
+    }
 }
 
 //Computer turn function
 function computerTurn() {
     //disable clicking when this function is invoked
-    yellowButton.removeEventListener('click', yellowButtonClick);
-    blueButton.removeEventListener('click', blueButtonClick);
-    greenButton.removeEventListener('click', greenButtonClick);
-    redButton.removeEventListener('click', redButtonClick);
     runLoop = async () => {
         for (const item of computer) {
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -205,7 +202,7 @@ function yellowButtonClick() {
     }, 300);
     player.push(1);
 
-    checkPlayerRound() // --> might not be a good name 
+    checkPlayerRound()
 
     console.log(player);
 }
@@ -240,7 +237,7 @@ function redButtonClick() {
     }, 300);
     player.push(4);
 
-    checkPlayerRound() // --> might not be a good name 
+    checkPlayerRound() 
 
     console.log(player);
 }
@@ -248,8 +245,6 @@ function redButtonClick() {
 //Human turn function 
 
 function playerTurn() {
-    // if (player.length !== computer.length) {
-    // }
     yellowButton.addEventListener('click', yellowButtonClick);
 
     blueButton.addEventListener('click', blueButtonClick);
@@ -276,8 +271,6 @@ function playGame() {
     computerTurn();
     playerTurn();
 }
-
-//End game function to thank players
 
 //Motivational button 
 
@@ -312,13 +305,13 @@ motivationButton.addEventListener('click', (event) => {
 //wildCard functions to reward the user for their accomplishment thus far
 const wildCardDiv = document.querySelector('#wildcard-type');
 const wildCardDescription = document.querySelector('#wildcard-description');
+const wildcardButton = document.querySelector('#wildcard-button');
 
 function wildCard() {
-    const wildcards = ['Skip the level', 'Gain an extra life'];
+    const wildcards = ['Skip the level', 'Gain an extra life', 'Impute element'];
     wildCardDiv.innerText = wildcards[Math.floor((Math.random() * wildcards.length))];
     if (wildCardDiv.innerText === 'Skip the level') {
         levels++;
-        console.log(levels);
         player = [];
         computer = [];
         wildCardDescription.innerText = 'Level skipped';
@@ -328,17 +321,25 @@ function wildCard() {
         life++;
         wildCardDescription.innerText = 'Extra life gained';
     }
+
+    if (wildCardDiv.innerText === 'Impute element'){
+        wildCardDescription.innerText = 'Impute element';
+        lastElementComputer = computer[computer.length-1];
+        if (player.length - 1) {
+            player.push(lastElementComputer);
+        }
+    }
 }
 
-
-//Wildcard Button 
-wildcardButton = document.querySelector('#wildcard-button');
-
-if (life % 5 === 0) {
-    wildcardButton.addEventListener('click', wildCard);
+/*
+if (levels % 5 === 0) {
+    wildcardButton.addEventListener('click', wildCard());
 } else {
-    wildcardButton.removeEventListener('click', wildCard);
+    wildcardButton.removeEventListener('click');
+    wildCardDescription.innerText = " ";
 }
+*/
+
 
 
 
