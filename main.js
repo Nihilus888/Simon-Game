@@ -27,6 +27,9 @@ startButton.addEventListener('click', (event) => {
     }   
     playGame();
     informationButton.innerText = 'Status: Game has started';
+    if (playGame === true){
+        startButton.removeEventListener('click', playGame());
+    }
 })
 
 //Initializing buttons for play
@@ -98,8 +101,8 @@ function gameOver() {
 //check with eugene to set how to reset the entire functions
 function resetGame() {
     clearColour();
-    computer = [];
-    player = [];
+    computer.length = 0;
+    player.length = 0;
     life = 5;
     levels = 0;
     yellowButton.removeEventListener('click', yellowButtonClick);
@@ -107,8 +110,14 @@ function resetGame() {
     greenButton.removeEventListener('click', greenButtonClick);
     redButton.removeEventListener('click', redButtonClick);
     informationButton.innerText = 'Status: Game not started yet'
+    displayLife.innerHTML = 'Life: ' + life;
+    displayLevel.innerHTML = levels;
+    if (levels === 0) {
+        displayLevel.innerText = "-"
+    } else {
+        displayLevel.innerText = levels;
+    }   
 }
-
 
 //Computer turn function
 function computerTurn() {
@@ -267,9 +276,6 @@ function playGame() {
     computerTurn();
     playerTurn();
 }
-
-console.log(playGame());
-
 
 //End game function to thank players
 

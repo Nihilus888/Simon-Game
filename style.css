@@ -11,6 +11,26 @@ body {
     font-weight: 500;
 }
 
+#start {
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: darkgreen;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+#start:hover {
+    background-color: #3e8e41;
+}
+
+#start:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 p {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 20px;
@@ -187,10 +207,37 @@ h2 {
 
 #motivation {
     position: absolute;
+    right: 175px;
+    bottom: 53%;
+    font-weight: 500;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
     text-align: center;
-    right: 200px;
-    bottom: 55%;
-    font-weight: 300;
+    padding: 15px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#motivation span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+#motivation:hover span {
+    padding-right: 25px;
+}
+
+#motivation:hover span:after {
+    opacity: 1;
+    right: 0;
 }
 
 #wildcard {
@@ -209,13 +256,19 @@ h2 {
 
 #wildcard-button {
     position: absolute;
+    background-color: darkgray;
     right: 280px;
     bottom: 12%;
+    opacity: 0.6s;
+    transition: 0.3s;
+}
+
+#wildcard-button:hover {
+    opacity: 1;
 }
 
 #wildcard-description {
     position: absolute;
     right: 280px;
     bottom: 22%;
-
 }
