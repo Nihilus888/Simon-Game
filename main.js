@@ -14,7 +14,7 @@ pauseButton = document.querySelector('#pause');
 //Username log in function
 /*
 let name = window.prompt("Enter your name: ");
-alert("Your name is " + name);
+alert("Welcome to Simon Game! Your name is " + name);
 displayName = document.querySelector('#name');
 displayName.innerText = "Name: " + name;
 */
@@ -23,6 +23,7 @@ informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
 
 //when button is clicked on, game starts and runs
+
 startButton.addEventListener('click', (event) => {
     levels++;
     if (levels === 0) {
@@ -31,10 +32,12 @@ startButton.addEventListener('click', (event) => {
         displayLevel.innerText = levels;
         informationButton.innerText = 'Status: Game has started';
     }
+    //remove eventListener
     playGame();
 })
 
 //when stop button is clicked on, resets game
+
 stopButton.addEventListener('click', (event) => {
     displayLevel.innerText = levels;
     informationButton.innerText = 'Status: Game not started yet'
@@ -43,8 +46,15 @@ stopButton.addEventListener('click', (event) => {
 
 //When pause button is clicked on, pauses game
 
+pauseButton.addEventListener('click', (event) => {
+    informationButton.innerText = 'Status: Game paused';
+    disableButtons();
+    setTimeout(computerTurn(), 4000000);
+})
+
 
 //Initializing buttons for play
+
 yellowButton = document.querySelector('#yellow-button');
 blueButton = document.querySelector('#blue-button');
 greenButton = document.querySelector('#green-button');
@@ -52,6 +62,7 @@ redButton = document.querySelector('#red-button');
 informationButton = document.querySelector('#information');
 
 //Display Levels
+
 displayLevel = document.querySelector('#display-level');
 if (levels === 0) {
     displayLevel.innerText = "-"
@@ -60,10 +71,12 @@ if (levels === 0) {
 }
 
 //Display Life
+
 displayLife = document.querySelector('#life');
 displayLife.innerHTML = 'Life: ' + life;
 
 //flash colour functions to use when in need of flashing colours
+
 function flashColour() {
     yellowButton.style.background = 'lightyellow';
     blueButton.style.background = 'lightblue';
@@ -72,17 +85,34 @@ function flashColour() {
 }
 
 //Sets the colours back to normal after flashing
+
 function clearColour() {
     yellowButton.style.background = 'rgb(204, 204, 0)';
     blueButton.style.background = 'darkblue';
     greenButton.style.background = 'rgb(0, 128, 0)';
     redButton.style.background = 'rgb(227, 0, 34)';
-    console.log(yellowButton.style.background);
 }
 
-console.log(clearColour());
+//Disable buttons 
+
+function disableButtons() {
+    yellowButton.removeEventListener('click', yellowButtonClick);
+    blueButton.removeEventListener('click', blueButtonClick);
+    greenButton.removeEventListener('click', greenButtonClick);
+    redButton.removeEventListener('click', redButtonClick);
+}
+
+//enable buttons 
+
+function enableButtons() {
+    yellowButton.addEventListener('click', yellowButtonClick);
+    blueButton.addEventListener('click', blueButtonClick);
+    greenButton.addEventListener('click', greenButtonClick);
+    redButton.addEventListener('click', redButtonClick);
+}
 
 //Randomizes array for up to 30 levels
+
 function random() {
     const array = ['yellowButton', 'blueButton', 'greenButton', 'redButton'];
     for (let i = 0; i < levels; i++) {
@@ -92,6 +122,7 @@ function random() {
 }
 
 //Win function to alert the user that they have already won
+
 function win() {
     const winning = document.querySelector('#win');
     if (levels === 30) {
@@ -103,6 +134,7 @@ function win() {
 }
 
 //Gameover function to end the game when the game is over
+
 function gameOver() {
     if (life === 0) {
         alert("Game over!")
@@ -114,16 +146,13 @@ function gameOver() {
 
 
 //Reset game function to set everything back to its initial state
-//check with eugene to set how to reset the entire functions
+
 function resetGame() {
     computer.length = 0;
     player.length = 0;
     life = 5;
     levels = 0;
-    yellowButton.removeEventListener('click', yellowButtonClick);
-    blueButton.removeEventListener('click', blueButtonClick);
-    greenButton.removeEventListener('click', greenButtonClick);
-    redButton.removeEventListener('click', redButtonClick);
+    disableButtons();
     informationButton.innerText = 'Status: Game not started yet'
     displayLife.innerHTML = 'Life: ' + life;
     displayLevel.innerHTML = levels;
@@ -135,8 +164,8 @@ function resetGame() {
 }
 
 //Computer turn function
+
 function computerTurn() {
-    //disable clicking when this function is invoked
     runLoop = async () => {
         for (const item of computer) {
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -176,7 +205,7 @@ function computerTurn() {
         }
     }
 
-    runLoop()
+    runLoop();
 }
 
 //Player Round
@@ -185,10 +214,7 @@ function checkPlayerRound() {
     console.log('has player finish turn:', player.length === computer.length)
     const hasGameEnd = player.length === computer.length;
     if (hasGameEnd) {
-        yellowButton.removeEventListener('click', yellowButtonClick);
-        blueButton.removeEventListener('click', blueButtonClick);
-        greenButton.removeEventListener('click', greenButtonClick);
-        redButton.removeEventListener('click', redButtonClick);
+        disableButtons();
 
         if (JSON.stringify(player) === JSON.stringify(computer)) {
             player = [];
@@ -239,7 +265,7 @@ function greenButtonClick() {
     }, 300);
     player.push(3);
 
-    checkPlayerRound() // --> might not be a good name 
+    checkPlayerRound();
 
     console.log(player);
 }
@@ -287,6 +313,7 @@ function playGame() {
 }
 
 //Motivational button 
+
 motivationButton.addEventListener('click', (event) => {
     const quotesDiv = document.querySelector('#quotes')
 
@@ -316,6 +343,7 @@ motivationButton.addEventListener('click', (event) => {
 })
 
 //wildCard functions to reward the user for their accomplishment thus far
+
 const wildCardDiv = document.querySelector('#wildcard-type');
 const wildCardDescription = document.querySelector('#wildcard-description');
 const wildcardButton = document.querySelector('#wildcard-button');

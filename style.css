@@ -54,6 +54,29 @@ body {
     transform: translateY(4px);
 }
 
+#resume {
+    position: absolute;
+    text-align: left;
+    bottom: 5.3%;
+    right: 58.5%;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+#resume:hover {
+    background-color: lightyellow;
+}
+
+#resume:active {
+    background-color: lightyellow;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 #stop {
     position: absolute;
     text-align: left;
@@ -270,9 +293,8 @@ h2 {
 }
 
 #motivation:hover {
-    opacity: 0.5;
+    opacity: 0.7;
 }
-
 
 #wildcard {
     position: absolute;
