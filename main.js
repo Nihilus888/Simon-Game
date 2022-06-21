@@ -8,6 +8,8 @@ let levels = 0;
 startButton = document.querySelector('#start');
 motivationButton = document.querySelector('#motivation')
 correctButton = document.querySelector('#correct');
+stopButton = document.querySelector('#stop');
+pauseButton = document.querySelector('#pause');
 
 //Username log in function
 /*
@@ -31,6 +33,16 @@ startButton.addEventListener('click', (event) => {
     }
     playGame();
 })
+
+//when stop button is clicked on, resets game
+stopButton.addEventListener('click', (event) => {
+    displayLevel.innerText = levels;
+    informationButton.innerText = 'Status: Game not started yet'
+    resetGame();
+});
+
+//When pause button is clicked on, pauses game
+
 
 //Initializing buttons for play
 yellowButton = document.querySelector('#yellow-button');
@@ -65,7 +77,10 @@ function clearColour() {
     blueButton.style.background = 'darkblue';
     greenButton.style.background = 'rgb(0, 128, 0)';
     redButton.style.background = 'rgb(227, 0, 34)';
+    console.log(yellowButton.style.background);
 }
+
+console.log(clearColour());
 
 //Randomizes array for up to 30 levels
 function random() {
@@ -101,7 +116,6 @@ function gameOver() {
 //Reset game function to set everything back to its initial state
 //check with eugene to set how to reset the entire functions
 function resetGame() {
-    clearColour();
     computer.length = 0;
     player.length = 0;
     life = 5;
@@ -237,7 +251,7 @@ function redButtonClick() {
     }, 300);
     player.push(4);
 
-    checkPlayerRound() 
+    checkPlayerRound()
 
     console.log(player);
 }
@@ -273,7 +287,6 @@ function playGame() {
 }
 
 //Motivational button 
-
 motivationButton.addEventListener('click', (event) => {
     const quotesDiv = document.querySelector('#quotes')
 
@@ -322,9 +335,9 @@ function wildCard() {
         wildCardDescription.innerText = 'Extra life gained';
     }
 
-    if (wildCardDiv.innerText === 'Impute element'){
+    if (wildCardDiv.innerText === 'Impute element') {
         wildCardDescription.innerText = 'Impute element';
-        lastElementComputer = computer[computer.length-1];
+        lastElementComputer = computer[computer.length - 1];
         if (player.length - 1) {
             player.push(lastElementComputer);
         }
