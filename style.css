@@ -237,15 +237,16 @@ p {
 #information {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 20px;
-    color: blue;
+    color: red;
     text-align: left;
     position: absolute;
     left: 80px;
     bottom: 150px;
     border: 2px solid black;
     padding: 20px;
-
+    animation: fadeIn 5s;
 }
+
 
 h2 {
     font-size: 20px;

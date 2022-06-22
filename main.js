@@ -10,6 +10,7 @@ motivationButton = document.querySelector('#motivation')
 correctButton = document.querySelector('#correct');
 stopButton = document.querySelector('#stop');
 pauseButton = document.querySelector('#pause');
+resumeButton = document.querySelector('#resume');
 
 //Username log in function
 /*
@@ -31,6 +32,7 @@ startButton.addEventListener('click', (event) => {
     } else {
         displayLevel.innerText = levels;
         informationButton.innerText = 'Status: Game has started';
+        informationButton.style.color = 'green';
     }
     //remove eventListener
     playGame();
@@ -41,6 +43,7 @@ startButton.addEventListener('click', (event) => {
 stopButton.addEventListener('click', (event) => {
     displayLevel.innerText = levels;
     informationButton.innerText = 'Status: Game not started yet'
+    informationButton.style.color = 'red';
     resetGame();
 });
 
@@ -48,10 +51,17 @@ stopButton.addEventListener('click', (event) => {
 
 pauseButton.addEventListener('click', (event) => {
     informationButton.innerText = 'Status: Game paused';
+    informationButton.style.color = 'white';
     disableButtons();
-    setTimeout(computerTurn(), 4000000);
 })
 
+//when resume button is clicked on, resumes game
+
+resumeButton.addEventListener('click', (event) => {
+    informationButton.innerText = 'Status: Game has resumed';
+    informationButton.style.color = 'green';
+    enableButtons();
+})
 
 //Initializing buttons for play
 
@@ -154,6 +164,7 @@ function resetGame() {
     levels = 0;
     disableButtons();
     informationButton.innerText = 'Status: Game not started yet'
+    informationButton.style.color = 'red';
     displayLife.innerHTML = 'Life: ' + life;
     displayLevel.innerHTML = levels;
     if (levels === 0) {
@@ -166,6 +177,7 @@ function resetGame() {
 //Computer turn function
 
 function computerTurn() {
+
     runLoop = async () => {
         for (const item of computer) {
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -204,7 +216,6 @@ function computerTurn() {
             }
         }
     }
-
     runLoop();
 }
 
