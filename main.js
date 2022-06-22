@@ -348,7 +348,9 @@ motivationButton.addEventListener('click', (event) => {
         , 'Jordan Peterson: If you fulfill your obligations everyday, you dont need to worry about the future'
         , 'Carl Jung: I am not what happened to me, I am what I choose to be'
         , 'Socrates: The unexamined life is not worth living'
-        , 'Seneca: What need is there to weep over parts of life? The whole of it calls for tears']
+        , 'Seneca: What need is there to weep over parts of life? The whole of it calls for tears'
+        , 'Socrates: The only true wisdom is in knowing you know nothing'
+        , 'Confucius: Roads were made for journeys, not destinations']
 
     quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
 })
@@ -360,39 +362,53 @@ const wildCardDescription = document.querySelector('#wildcard-description');
 const wildcardButton = document.querySelector('#wildcard-button');
 
 function wildCard() {
-    const wildcards = ['Skip the level', 'Gain an extra life', 'Impute element'];
-    wildCardDiv.innerText = wildcards[Math.floor((Math.random() * wildcards.length))];
-    if (wildCardDiv.innerText === 'Skip the level') {
-        levels++;
-        player = [];
-        computer = [];
-        wildCardDescription.innerText = 'Level skipped';
-    }
+    const wildCards = [1, 2, 3];
+    
+    if (levels % 2 === 0) {
+        console.log('hello there');
+        wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
+        wildcardButton.addEventListener('click', (event) => {
+            if (wildCardDiv.innerText === 1) {
+                levels++;
+                player = [];
+                computer = [];
+                wildCardDescription.innerText = 'Level skipped';
+                console.log(levels)
+            }
 
-    if (wildCardDiv.innerText === 'Gain an extra life') {
-        life++;
-        wildCardDescription.innerText = 'Extra life gained';
-    }
+            if (wildCardDiv.innerText === 2) {
+                life++;
+                wildCardDescription.innerText = 'Extra life gained';
+                console.log(life);
+            }
 
-    if (wildCardDiv.innerText === 'Impute element') {
-        wildCardDescription.innerText = 'Impute element';
-        lastElementComputer = computer[computer.length - 1];
-        if (player.length - 1) {
-            player.push(lastElementComputer);
-        }
+            if (wildCardDiv.innerText === 3) {
+                wildCardDescription.innerText = 'Impute last element';
+                lastElementComputer = computer[computer.length - 1];
+                console.log(lastElementComputer);
+                player.push(lastElementComputer);
+                console.log(player);
+            }
+        });
+
+    } else if (levels % 2 !== 0) {
+        wildCardDescription.innerText = " ";
+
+    } else {
+        wildCardDescription.innerText = " ";
     }
 }
+
+console.log(wildCard());
 
 /*
 if (levels % 5 === 0) {
     wildcardButton.addEventListener('click', wildCard());
+} else if (levels % 5 !== 0) {
+    wildcardButton.removeEventListener('click', wildCard());
+    wildCardDescription.innerText = " ";
 } else {
-    wildcardButton.removeEventListener('click');
+    wildcardButton.removeEventListener('click', wildCard());
     wildCardDescription.innerText = " ";
 }
 */
-
-
-
-
-

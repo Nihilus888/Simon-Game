@@ -247,7 +247,6 @@ p {
     animation: fadeIn 5s;
 }
 
-
 h2 {
     font-size: 20px;
     color: blue;
@@ -291,10 +290,12 @@ h2 {
     margin: 4px 2px;
     opacity: 1;
     transition: 0.3s;
+    flex-wrap: wrap; 
 }
 
 #motivation:hover {
     opacity: 0.7;
+    flex-flow: wrap;
 }
 
 #wildcard {
