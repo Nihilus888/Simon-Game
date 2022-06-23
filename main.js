@@ -2,7 +2,7 @@
 let computer = [];
 let player = [];
 let life = 5;
-let levels = 0;
+let levels = 1;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -11,6 +11,12 @@ correctButton = document.querySelector('#correct');
 stopButton = document.querySelector('#stop');
 pauseButton = document.querySelector('#pause');
 resumeButton = document.querySelector('#resume');
+
+//audio button for game sounds
+yellowButtonSound = document.getElementById('clip1');
+blueButtonSound = document.getElementById('clip2');
+greenButtonSound = document.getElementById('clip3');
+redButtonSound = document.getElementById('clip4');
 
 //Username log in function
 /*
@@ -26,7 +32,6 @@ informationButton.innerText = 'Status: Game not started yet'
 //when button is clicked on, game starts and runs
 
 startButton.addEventListener('click', (event) => {
-    levels++;
     if (levels === 0) {
         displayLevel.innerText = "-"
     } else {
@@ -177,7 +182,6 @@ function resetGame() {
 //Computer turn function
 
 function computerTurn() {
-
     runLoop = async () => {
         for (const item of computer) {
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -186,6 +190,7 @@ function computerTurn() {
                 yellowButton.style.background = 'lightyellow';
                 setTimeout(function () {
                     yellowButton.style.background = 'rgb(204, 204, 0)';
+                    yellowButtonSound.play();
                 }
                     , 1000);
                 console.log('yellow');
@@ -195,6 +200,7 @@ function computerTurn() {
                 blueButton.style.background = 'lightblue';
                 setTimeout(function () {
                     blueButton.style.background = 'darkblue';
+                    blueButtonSound.play();
                 }, 1000);
                 console.log('blue');
             }
@@ -203,6 +209,7 @@ function computerTurn() {
                 greenButton.style.background = 'lightgreen';
                 setTimeout(function () {
                     greenButton.style.background = 'rgb(0, 128, 0)';
+                    greenButtonSound.play();
                 }, 1000);
                 console.log('green');
             }
@@ -211,6 +218,7 @@ function computerTurn() {
                 redButton.style.background = 'pink';
                 setTimeout(function () {
                     redButton.style.background = 'rgb(227, 0, 34)';
+                    redButtonSound.play();
                 }, 1000);
                 console.log('red');
             }
@@ -250,6 +258,7 @@ function yellowButtonClick() {
     yellowButton.style.background = 'lightyellow';
     setTimeout(function () {
         yellowButton.style.background = 'rgb(204, 204, 0)';
+        yellowButtonSound.play();
     }, 300);
     player.push(1);
 
@@ -262,6 +271,7 @@ function blueButtonClick() {
     blueButton.style.background = 'lightblue';
     setTimeout(function () {
         blueButton.style.background = 'darkblue';
+        blueButtonSound.play();
     }, 300);
     player.push(2);
 
@@ -273,6 +283,7 @@ function greenButtonClick() {
     greenButton.style.background = 'lightgreen';
     setTimeout(function () {
         greenButton.style.background = 'rgb(0, 128, 0)';
+        greenButtonSound.play();
     }, 300);
     player.push(3);
 
@@ -285,6 +296,7 @@ function redButtonClick() {
     redButton.style.background = 'pink';
     setTimeout(function () {
         redButton.style.background = 'rgb(227, 0, 34)';
+        redButtonSound.play();
     }, 300);
     player.push(4);
 
@@ -321,6 +333,7 @@ function playGame() {
     random();
     computerTurn();
     playerTurn();
+    wildCard();
 }
 
 //Motivational button 
@@ -356,59 +369,42 @@ motivationButton.addEventListener('click', (event) => {
 })
 
 //wildCard functions to reward the user for their accomplishment thus far
+//check with eugene
 
 const wildCardDiv = document.querySelector('#wildcard-type');
 const wildCardDescription = document.querySelector('#wildcard-description');
-const wildcardButton = document.querySelector('#wildcard-button');
 
 function wildCard() {
-    const wildCards = [1, 2, 3];
-    
+
+    const wildCards = ['Level skipped', 'Extra life gained', 'Impute last element'];
+    wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
+    console.log(wildCardDiv);
+
     if (levels % 2 === 0) {
-        console.log('hello there');
-        wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
-        wildcardButton.addEventListener('click', (event) => {
-            if (wildCardDiv.innerText === 1) {
-                levels++;
-                player = [];
-                computer = [];
-                wildCardDescription.innerText = 'Level skipped';
-                console.log(levels)
-            }
+        if (wildCardDiv.innerText === 'Level skipped') {
+            levels++;
+            player = [];
+            computer = [];
+            wildCardDescription.innerText = 'Level skipped';
+            console.log(levels)
+        }
 
-            if (wildCardDiv.innerText === 2) {
-                life++;
-                wildCardDescription.innerText = 'Extra life gained';
-                console.log(life);
-            }
+        if (wildCardDiv.innerText === 'Extra life gained') {
+            life++;
+            wildCardDescription.innerText = 'Extra life gained';
+            console.log(life);
+        }
 
-            if (wildCardDiv.innerText === 3) {
-                wildCardDescription.innerText = 'Impute last element';
-                lastElementComputer = computer[computer.length - 1];
-                console.log(lastElementComputer);
-                player.push(lastElementComputer);
-                console.log(player);
-            }
-        });
-
-    } else if (levels % 2 !== 0) {
-        wildCardDescription.innerText = " ";
+        if (wildCardDiv.innerText === 'Impute last element') {
+            wildCardDescription.innerText = 'Impute last element';
+            lastElementComputer = computer[computer.length - 1];
+            console.log(lastElementComputer);
+            player.push(lastElementComputer);
+            console.log(player);
+        }
 
     } else {
         wildCardDescription.innerText = " ";
     }
 }
 
-console.log(wildCard());
-
-/*
-if (levels % 5 === 0) {
-    wildcardButton.addEventListener('click', wildCard());
-} else if (levels % 5 !== 0) {
-    wildcardButton.removeEventListener('click', wildCard());
-    wildCardDescription.innerText = " ";
-} else {
-    wildcardButton.removeEventListener('click', wildCard());
-    wildCardDescription.innerText = " ";
-}
-*/

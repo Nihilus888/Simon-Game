@@ -123,6 +123,7 @@ p {
     font-size: 30px;
     font-weight: 500;
     margin-top: -45px;
+    color: navy;
 }
 
 #main-buttons {
@@ -306,35 +307,17 @@ h2 {
     padding: 0px 75px 125px 75px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 25px;
-}
-
-#wildcard-type {
-    position: absolute;
-}
-
-#wildcard-button {
-    position: absolute;
-    background-color: darkgray;
-    right: 280px;
-    bottom: 12%;
-    border: none;
-    color: black;
-    margin: 4px 2px;
-    transition: 0.3s;
-}
-
-#wildcard-button:hover {
-    background-color: blue;
-    color: white;
+    color: purple;
 }
 
 #wildcard-description {
     position: absolute;
     text-align: center;
-    right: 275px;
-    bottom: 22%;
+    right: 245px;
+    bottom: 20%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     font-style: oblique;
+    color: saddlebrown;
 }
