@@ -2,7 +2,7 @@
 let computer = [];
 let player = [];
 let life = 5;
-let levels = 1;
+let levels = 0;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -17,6 +17,8 @@ yellowButtonSound = document.getElementById('clip1');
 blueButtonSound = document.getElementById('clip2');
 greenButtonSound = document.getElementById('clip3');
 redButtonSound = document.getElementById('clip4');
+allSound = document.getElementById('audioclips');
+audioButton = document.getElementById('audio');
 
 //Username log in function
 /*
@@ -29,9 +31,19 @@ displayName.innerText = "Name: " + name;
 informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
 
+//toggle sound on or off 
+function togglePlay() {
+    if(audioButton.paused) {
+        audioButton.play();
+    } else {
+        audioButton.pause();
+    }
+}
+
 //when button is clicked on, game starts and runs
 
 startButton.addEventListener('click', (event) => {
+    levels++;
     if (levels === 0) {
         displayLevel.innerText = "-"
     } else {
