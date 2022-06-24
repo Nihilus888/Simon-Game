@@ -37,4 +37,11 @@ CONCEPTS AND FEATURES USED IN THIS PROJECT
 6. Composite Functions 
 7. State Machiness
 
+CHALLENGES FACED
 
+1. Getting the buttons to blink according to their designated sequence
+2. Compiling all the functions and where to put the functions in order for it to run smoothly
+
+THINGS TO IMPROVE ON
+
+1. Cleaner code by having better variable names

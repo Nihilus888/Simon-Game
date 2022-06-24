@@ -48,7 +48,7 @@ body {
     background-color: lightgray;
 }
 
-#pause:active{
+#pause:active {
     background-color: lightgray;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -291,7 +291,7 @@ h2 {
     margin: 4px 2px;
     opacity: 1;
     transition: 0.3s;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 #motivation:hover {
@@ -318,8 +318,9 @@ h2 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 25px;
     font-weight: bold;
-    font-style: oblique;
+    font-style: inital;
     color: saddlebrown;
+    padding: 10px;
 }
 
 #audio {
@@ -328,4 +329,17 @@ h2 {
     left: 150px;
     bottom: 10%;
     color: white;
+}
+
+#Highscore {
+    font-family: 'Games', sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    position: absolute;
+    left: 80px;
+    bottom: 250px;
+    width: 200px;
+    border: 2px solid black;
+    padding: 5px;
 }

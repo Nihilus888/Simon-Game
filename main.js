@@ -2,7 +2,7 @@
 let computer = [];
 let player = [];
 let life = 5;
-let levels = 0;
+let levels = 1;
 
 //start game function
 startButton = document.querySelector('#start');
@@ -24,16 +24,17 @@ audioButton = document.getElementById('audio');
 /*
 let name = window.prompt("Enter your name: ");
 alert("Welcome to Simon Game! Your name is " + name);
+*/
 displayName = document.querySelector('#name');
 displayName.innerText = "Name: " + name;
-*/
+
 
 informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
 
 //toggle sound on or off 
 function togglePlay() {
-    if(audioButton.paused) {
+    if (audioButton.paused) {
         audioButton.play();
     } else {
         audioButton.pause();
@@ -43,7 +44,6 @@ function togglePlay() {
 //when button is clicked on, game starts and runs
 
 startButton.addEventListener('click', (event) => {
-    levels++;
     if (levels === 0) {
         displayLevel.innerText = "-"
     } else {
@@ -178,7 +178,7 @@ function resetGame() {
     computer.length = 0;
     player.length = 0;
     life = 5;
-    levels = 0;
+    levels = 1;
     disableButtons();
     informationButton.innerText = 'Status: Game not started yet'
     informationButton.style.color = 'red';
@@ -252,6 +252,7 @@ function checkPlayerRound() {
             life++;
             displayLife.innerHTML = 'Life: ' + life;
             nextRound();
+            wildCard();
             win();
         }
 
@@ -345,7 +346,6 @@ function playGame() {
     random();
     computerTurn();
     playerTurn();
-    wildCard();
 }
 
 //Motivational button 
@@ -375,13 +375,17 @@ motivationButton.addEventListener('click', (event) => {
         , 'Socrates: The unexamined life is not worth living'
         , 'Seneca: What need is there to weep over parts of life? The whole of it calls for tears'
         , 'Socrates: The only true wisdom is in knowing you know nothing'
-        , 'Confucius: Roads were made for journeys, not destinations']
+        , 'Confucius: Roads were made for journeys, not destinations'
+        , 'Master Yoda: Do or do not, there is no try'
+        , 'Master Yoda: The greatest teacher failure is'
+        , 'Batman: Why do we fall? So that we can learn to pick ourselves up'
+        , 'Batman: Our greatest glory is not in never falling, but in rising every time we fall']
 
     quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
 })
 
 //wildCard functions to reward the user for their accomplishment thus far
-//check with eugene
+//check with eugene on imputing last element and other ideas
 
 const wildCardDiv = document.querySelector('#wildcard-type');
 const wildCardDescription = document.querySelector('#wildcard-description');
@@ -392,27 +396,28 @@ function wildCard() {
     wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
     console.log(wildCardDiv);
 
-    if (levels % 2 === 0) {
+    if (levels % 5 === 0) {
         if (wildCardDiv.innerText === 'Level skipped') {
-            levels++;
-            player = [];
-            computer = [];
             wildCardDescription.innerText = 'Level skipped';
-            console.log(levels)
+            nextRound();
         }
 
         if (wildCardDiv.innerText === 'Extra life gained') {
             life++;
-            wildCardDescription.innerText = 'Extra life gained';
             console.log(life);
+            displayLife.innerHTML = 'Life: ' + life;
+            wildCardDescription.innerText = 'Extra life gained';
         }
 
         if (wildCardDiv.innerText === 'Impute last element') {
             wildCardDescription.innerText = 'Impute last element';
-            lastElementComputer = computer[computer.length - 1];
-            console.log(lastElementComputer);
-            player.push(lastElementComputer);
-            console.log(player);
+            if ((player.length - 1) === (computer.length - 1)) {
+                console.log(player.length - 1);
+                console.log(computer.length - 1);
+                nextRound();
+            } else {
+                return;
+            }
         }
 
     } else {
@@ -420,3 +425,17 @@ function wildCard() {
     }
 }
 
+//Highscore area
+//ask eugene tomorrow
+
+const person = {
+    name: displayName,
+    score: levels,
+}
+
+highScoreDisplay = document.getElementById('Highscore');
+
+console.log(person);
+
+window.localStorage.setItem('Highscore', JSON.stringify(person));
+highScoreDisplay.innerText = JSON.parse(window.localStorage.getItem('Highscore'));
