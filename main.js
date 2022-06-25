@@ -11,6 +11,7 @@ correctButton = document.querySelector('#correct');
 stopButton = document.querySelector('#stop');
 pauseButton = document.querySelector('#pause');
 resumeButton = document.querySelector('#resume');
+Turn = document.getElementById('Turn');
 
 //audio button for game sounds
 yellowButtonSound = document.getElementById('clip1');
@@ -21,12 +22,13 @@ allSound = document.getElementById('audioclips');
 audioButton = document.getElementById('audio');
 
 //Username log in function
-/*
+
+
 let name = window.prompt("Enter your name: ");
 alert("Welcome to Simon Game! Your name is " + name);
-*/
 displayName = document.querySelector('#name');
-displayName.innerText = "Name: " + name;
+displayName.innerText = name;
+
 
 
 informationButton = document.querySelector('#information');
@@ -194,9 +196,10 @@ function resetGame() {
 //Computer turn function
 
 function computerTurn() {
+
     runLoop = async () => {
         for (const item of computer) {
-            await new Promise(resolve => setTimeout(resolve, 2000))
+            await new Promise(resolve => setTimeout(resolve, 1000))
             console.log(item);
             if (item === 1) {
                 yellowButton.style.background = 'lightyellow';
@@ -204,7 +207,7 @@ function computerTurn() {
                     yellowButton.style.background = 'rgb(204, 204, 0)';
                     yellowButtonSound.play();
                 }
-                    , 1000);
+                    , 300);
                 console.log('yellow');
             }
 
@@ -213,7 +216,7 @@ function computerTurn() {
                 setTimeout(function () {
                     blueButton.style.background = 'darkblue';
                     blueButtonSound.play();
-                }, 1000);
+                }, 300);
                 console.log('blue');
             }
 
@@ -222,7 +225,7 @@ function computerTurn() {
                 setTimeout(function () {
                     greenButton.style.background = 'rgb(0, 128, 0)';
                     greenButtonSound.play();
-                }, 1000);
+                }, 300);
                 console.log('green');
             }
 
@@ -231,11 +234,12 @@ function computerTurn() {
                 setTimeout(function () {
                     redButton.style.background = 'rgb(227, 0, 34)';
                     redButtonSound.play();
-                }, 1000);
+                }, 300);
                 console.log('red');
             }
         }
     }
+    Turn.innerText = "Computer's Turn";
     runLoop();
 }
 
@@ -321,6 +325,9 @@ function redButtonClick() {
 //Human turn function 
 
 function playerTurn() {
+
+    Turn.innerText = "Player's Turn";
+
     yellowButton.addEventListener('click', yellowButtonClick);
 
     blueButton.addEventListener('click', blueButtonClick);
@@ -346,6 +353,7 @@ function playGame() {
     random();
     computerTurn();
     playerTurn();
+    writeHighScore();
 }
 
 //Motivational button 
@@ -392,7 +400,7 @@ const wildCardDescription = document.querySelector('#wildcard-description');
 
 function wildCard() {
 
-    const wildCards = ['Level skipped', 'Extra life gained', 'Impute last element'];
+    const wildCards = ['Level skipped', 'Extra life gained', 'Impute last element', 'Slow Down time'];
     wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
     console.log(wildCardDiv);
 
@@ -420,22 +428,48 @@ function wildCard() {
             }
         }
 
+        if (wildCardDiv.innerText === 'Slow Down time') {
+            wildCardDescription.innerText = 'Slow Down time';
+            setTimeout(computerTurn(), 2000);
+        }
+
     } else {
         wildCardDescription.innerText = " ";
     }
 }
 
 //Highscore area
-//ask eugene tomorrow
 
-const person = {
-    name: displayName,
-    score: levels,
+function writeHighScore() {
+
+    const person = {
+        name: displayName.innerText,
+        score: levels,
+    }
+
+    highScoreDisplay = document.getElementById('Highscore');
+
+    localStorage.setItem('Highscore', JSON.stringify(person));
+    const highScore = JSON.parse(window.localStorage.getItem('Highscore'));
+    console.log(highScore);
+    const highScoreName = highScore.name;
+    const highScoreScore = highScore.score;
+    console.log(highScoreScore);
+    console.log(highScoreName);
+
+    highScoreDisplay = document.getElementById('NameAndScore');
+    if (levels > highScoreScore) {
+        localStorage.setItem('Highscore', levels);
+        localStorage.setItem('Highscore', name);
+        highScoreDisplay.innerText = "High Score: " + name + " " + levels;
+    } else {
+        localStorage.getItem('Highscore', levels);
+        localStorage.getItem('Highscore', name);
+        highScoreDisplay.innerText = "High Score: " +  name + " " + levels;
+    }
+
 }
 
-highScoreDisplay = document.getElementById('Highscore');
 
-console.log(person);
 
-window.localStorage.setItem('Highscore', JSON.stringify(person));
-highScoreDisplay.innerText = JSON.parse(window.localStorage.getItem('Highscore'));
+
