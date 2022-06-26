@@ -182,6 +182,7 @@ function resetGame() {
     life = 5;
     levels = 1;
     disableButtons();
+    writeHighScore();
     informationButton.innerText = 'Status: Game not started yet'
     informationButton.style.color = 'red';
     displayLife.innerHTML = 'Life: ' + life;
@@ -353,7 +354,6 @@ function playGame() {
     random();
     computerTurn();
     playerTurn();
-    writeHighScore();
 }
 
 //Motivational button 
@@ -428,6 +428,7 @@ function wildCard() {
             }
         }
 
+        //check with Jonathan
         if (wildCardDiv.innerText === 'Slow Down time') {
             wildCardDescription.innerText = 'Slow Down time';
             setTimeout(computerTurn(), 2000);
@@ -447,28 +448,26 @@ function writeHighScore() {
         score: levels,
     }
 
-    highScoreDisplay = document.getElementById('Highscore');
-
-    localStorage.setItem('Highscore', JSON.stringify(person));
-    const highScore = JSON.parse(window.localStorage.getItem('Highscore'));
-    console.log(highScore);
-    const highScoreName = highScore.name;
-    const highScoreScore = highScore.score;
-    console.log(highScoreScore);
-    console.log(highScoreName);
-
     highScoreDisplay = document.getElementById('NameAndScore');
-    if (levels > highScoreScore) {
-        localStorage.setItem('Highscore', levels);
-        localStorage.setItem('Highscore', name);
-        highScoreDisplay.innerText = "High Score: " + name + " " + levels;
-    } else {
-        localStorage.getItem('Highscore', levels);
-        localStorage.getItem('Highscore', name);
-        highScoreDisplay.innerText = "High Score: " +  name + " " + levels;
-    }
+    currentHighScorePerson = localStorage.getItem('Person High Score');
+    currentHighScore = localStorage.getItem('HighScore');
 
+    if (levels > currentHighScore) {
+        currentHighScorePerson = localStorage.setItem('Person High Score', name);
+        currentHighScore = localStorage.setItem('HighScore', levels);
+        currentHighScorePerson = localStorage.getItem('Person High Score')
+        currentHighScore = localStorage.getItem('HighScore');
+        console.log(currentHighScorePerson);
+        console.log(currentHighScore);
+        highScoreDisplay.innerText = 'High Score: ' + currentHighScorePerson + ' ' + currentHighScore;
+    } else {
+        currentHighScorePerson = localStorage.getItem('Person High Score')
+        currentHighScore = localStorage.getItem('HighScore');
+        highScoreDisplay.innerText = 'High Score: ' + currentHighScorePerson + ' ' + currentHighScore;
+    }
 }
+
+console.log(writeHighScore());
 
 
 
