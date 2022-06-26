@@ -30,9 +30,12 @@ displayName = document.querySelector('#name');
 displayName.innerText = name;
 
 
-
 informationButton = document.querySelector('#information');
 informationButton.innerText = 'Status: Game not started yet'
+
+//Turn inner text when game has not yet started
+
+Turn.innerText = "Nobody's turn";
 
 //toggle sound on or off 
 function togglePlay() {
@@ -63,6 +66,7 @@ stopButton.addEventListener('click', (event) => {
     displayLevel.innerText = levels;
     informationButton.innerText = 'Status: Game not started yet'
     informationButton.style.color = 'red';
+    writeHighScore();
     resetGame();
 });
 
@@ -156,6 +160,7 @@ function win() {
     const winning = document.querySelector('#win');
     if (levels === 30) {
         alert("Congratulations you have won the game!");
+        writeHighScore();
         resetGame();
     } else {
         return
@@ -167,6 +172,8 @@ function win() {
 function gameOver() {
     if (life === 0) {
         alert("Game over!")
+        console.log(levels);
+        writeHighScore();
         resetGame();
     } else {
         return;
@@ -182,10 +189,10 @@ function resetGame() {
     life = 5;
     levels = 1;
     disableButtons();
-    writeHighScore();
     informationButton.innerText = 'Status: Game not started yet'
     informationButton.style.color = 'red';
     displayLife.innerHTML = 'Life: ' + life;
+    Turn.innerHTML = "Nobody's turn";
     displayLevel.innerHTML = levels;
     if (levels === 0) {
         displayLevel.innerText = "-"
@@ -202,11 +209,15 @@ function computerTurn() {
         for (const item of computer) {
             await new Promise(resolve => setTimeout(resolve, 1000))
             console.log(item);
+            Turn.innerText = "Player's Turn";
+            Turn.style.color = 'darkblue';
             if (item === 1) {
                 yellowButton.style.background = 'lightyellow';
                 setTimeout(function () {
                     yellowButton.style.background = 'rgb(204, 204, 0)';
                     yellowButtonSound.play();
+                    Turn.innerText = "Player's Turn";
+                    Turn.style.color = 'darkblue';
                 }
                     , 300);
                 console.log('yellow');
@@ -217,6 +228,8 @@ function computerTurn() {
                 setTimeout(function () {
                     blueButton.style.background = 'darkblue';
                     blueButtonSound.play();
+                    Turn.innerText = "Player's Turn";
+                    Turn.style.color = 'darkblue';
                 }, 300);
                 console.log('blue');
             }
@@ -226,6 +239,8 @@ function computerTurn() {
                 setTimeout(function () {
                     greenButton.style.background = 'rgb(0, 128, 0)';
                     greenButtonSound.play();
+                    Turn.innerText = "Player's Turn";
+                    Turn.style.color = 'darkblue';
                 }, 300);
                 console.log('green');
             }
@@ -235,12 +250,15 @@ function computerTurn() {
                 setTimeout(function () {
                     redButton.style.background = 'rgb(227, 0, 34)';
                     redButtonSound.play();
+                    Turn.innerText = "Player's Turn";
+                    Turn.style.color = 'darkblue';
                 }, 300);
                 console.log('red');
             }
         }
     }
-    Turn.innerText = "Computer's Turn";
+    Turn.innerText = "Player's Turn";
+    Turn.style.color = 'darkblue';
     runLoop();
 }
 
@@ -327,7 +345,8 @@ function redButtonClick() {
 
 function playerTurn() {
 
-    Turn.innerText = "Player's Turn";
+    Turn.innerText = "Computer's Turn";
+    Turn.style.color = 'darkred';
 
     yellowButton.addEventListener('click', yellowButtonClick);
 
@@ -451,7 +470,6 @@ function writeHighScore() {
     highScoreDisplay = document.getElementById('NameAndScore');
     currentHighScorePerson = localStorage.getItem('Person High Score');
     currentHighScore = localStorage.getItem('HighScore');
-
     if (levels > currentHighScore) {
         currentHighScorePerson = localStorage.setItem('Person High Score', name);
         currentHighScore = localStorage.setItem('HighScore', levels);
@@ -460,6 +478,7 @@ function writeHighScore() {
         console.log(currentHighScorePerson);
         console.log(currentHighScore);
         highScoreDisplay.innerText = 'High Score: ' + currentHighScorePerson + ' ' + currentHighScore;
+
     } else {
         currentHighScorePerson = localStorage.getItem('Person High Score')
         currentHighScore = localStorage.getItem('HighScore');
@@ -467,7 +486,8 @@ function writeHighScore() {
     }
 }
 
-console.log(writeHighScore());
+//Makes the highscore appear before game store
+writeHighScore();
 
 
 

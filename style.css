@@ -326,16 +326,16 @@ h2 {
 #Turn {
     position: absolute;
     text-align: center;
-    left: 150px;
-    bottom: 6%;
+    left: 100px;
+    bottom: 7%;
     color: black;
     border: 2px solid black;
     border-radius: 50%;
     padding: 20px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 20px;
     font-weight: 400;
-    color: black;
+    color: slateblue;
 }
 
 #Highscore {
@@ -348,5 +348,25 @@ h2 {
     bottom: 250px;
     width: 250px;
     border: 2px solid black;
+    padding: 10px;
+}
+
+#ClearHighScore {
+    position: absolute;
+    left: 300px;
+    bottom: 9%;
+    color: white;
+    border-style: solid;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    padding: 10px;
+}
+
+#ClearHighScore:hover {
+    background-color: red;
+    color: black;
+    transition: 0.6s;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
     padding: 10px;
 }
