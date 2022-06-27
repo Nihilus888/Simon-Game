@@ -435,13 +435,13 @@ function wildCard() {
             displayLife.innerHTML = 'Life: ' + life;
             wildCardDescription.innerText = 'Extra life gained';
         }
-
+    
+        //check with jonathan
         if (wildCardDiv.innerText === 'Impute last element') {
             wildCardDescription.innerText = 'Impute last element';
-            if ((player.length - 1) === (computer.length - 1)) {
-                console.log(player.length - 1);
-                console.log(computer.length - 1);
-                nextRound();
+            lastElementComputer = computer[computer.length - 1];
+            if (player.length - 1) {
+                player.push(lastElementComputer);
             } else {
                 return;
             }
@@ -459,7 +459,7 @@ function wildCard() {
 }
 
 //Highscore area
-
+highScoreDisplay = document.getElementById('NameAndScore');
 function writeHighScore() {
 
     const person = {
@@ -467,7 +467,6 @@ function writeHighScore() {
         score: levels,
     }
 
-    highScoreDisplay = document.getElementById('NameAndScore');
     currentHighScorePerson = localStorage.getItem('Person High Score');
     currentHighScore = localStorage.getItem('HighScore');
     if (levels > currentHighScore) {
@@ -486,9 +485,19 @@ function writeHighScore() {
     }
 }
 
-//Makes the highscore appear before game store
+//Makes the highscore appear before game starts
 writeHighScore();
 
+//clear Highscore
+clearHighScore = document.getElementById('ClearHighScore');
+
+function clearingHighScore() {
+    localStorage.removeItem('Person High Score');
+    localStorage.removeItem('HighScore');
+    highScoreDisplay.innerText = 'High Score: ';
+}
+
+clearHighScore.addEventListener('click', clearingHighScore());
 
 
 
