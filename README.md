@@ -47,7 +47,7 @@ CHALLENGES FACED
 
 1. Getting the buttons to blink according to their designated sequence
 2. Compiling all the functions and where to put the functions in order for it to run smoothly
-3. Local Storage
+3. Local Storage and how to update high score or clear it
 
 THINGS TO IMPROVE ON IF I HAD MORE TIME
 ----------------------
@@ -55,4 +55,4 @@ THINGS TO IMPROVE ON IF I HAD MORE TIME
 1. Cleaner code by having better variable names
 2. Better styling and structuring
 3. More focus on UI/UX
-4. USE API for my motivational quotes (Hard to find one without a subscription)
+4. USE API for my motivational quotes (Hard to find one without a subscription

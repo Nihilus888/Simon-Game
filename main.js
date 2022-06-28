@@ -411,7 +411,7 @@ motivationButton.addEventListener('click', (event) => {
     quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
 })
 
-//wildCard functions to reward the user for their accomplishment thus far
+//wildCard functions to reward the user for their accomplishment thus far after every 5 levels
 //check with eugene on imputing last element and other ideas
 
 const wildCardDiv = document.querySelector('#wildcard-type');
@@ -436,10 +436,11 @@ function wildCard() {
             wildCardDescription.innerText = 'Extra life gained';
         }
     
-        //check with jonathan
+        //check with Jonathan
         if (wildCardDiv.innerText === 'Impute last element') {
             wildCardDescription.innerText = 'Impute last element';
             lastElementComputer = computer[computer.length - 1];
+            console.log(lastElementComputer);
             if (player.length - 1) {
                 player.push(lastElementComputer);
             } else {
