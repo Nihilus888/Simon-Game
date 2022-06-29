@@ -194,6 +194,7 @@ function resetGame() {
     displayLife.innerHTML = 'Life: ' + life;
     Turn.innerHTML = "Nobody's turn";
     displayLevel.innerHTML = levels;
+    wildCardDescription.innerText = " "
     if (levels === 0) {
         displayLevel.innerText = "-"
     } else {
@@ -406,7 +407,8 @@ motivationButton.addEventListener('click', (event) => {
         , 'Master Yoda: Do or do not, there is no try'
         , 'Master Yoda: The greatest teacher failure is'
         , 'Batman: Why do we fall? So that we can learn to pick ourselves up'
-        , 'Batman: Our greatest glory is not in never falling, but in rising every time we fall']
+        , 'Batman: Our greatest glory is not in never falling, but in rising every time we fall'
+        , 'Jor-El: What if a child dreamed of something other than what society intended, what if a child aspired to something greater']
 
     quotesDiv.innerText = motivationalQuotes[Math.floor((Math.random() * motivationalQuotes.length))];
 })
@@ -419,39 +421,47 @@ const wildCardDescription = document.querySelector('#wildcard-description');
 
 function wildCard() {
 
-    const wildCards = ['Level skipped', 'Extra life gained', 'Impute last element', 'Slow Down time'];
+    const wildCards = ['Level skipped', 'Extra life gained', 'Push last element', 'Slow Down time', 'Minus a life'];
     wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
     console.log(wildCardDiv);
 
-    if (levels % 5 === 0) {
+    if (levels % 1 === 0) {
+
+        //Skips a level immediately
         if (wildCardDiv.innerText === 'Level skipped') {
             wildCardDescription.innerText = 'Level skipped';
             nextRound();
         }
 
+        //Extra life gained
         if (wildCardDiv.innerText === 'Extra life gained') {
             life++;
             console.log(life);
             displayLife.innerHTML = 'Life: ' + life;
             wildCardDescription.innerText = 'Extra life gained';
         }
-    
-        //check with Jonathan
-        if (wildCardDiv.innerText === 'Impute last element') {
-            wildCardDescription.innerText = 'Impute last element';
+
+        //Push last element into the array 
+        if (wildCardDiv.innerText === 'Push last element') {
+            wildCardDescription.innerText = 'Push last element';
             lastElementComputer = computer[computer.length - 1];
-            console.log(lastElementComputer);
-            if (player.length - 1) {
+            if (computer.length - 1 === player.length) {
                 player.push(lastElementComputer);
-            } else {
-                return;
             }
         }
 
-        //check with Jonathan
+        //Slow Down Time
         if (wildCardDiv.innerText === 'Slow Down time') {
             wildCardDescription.innerText = 'Slow Down time';
-            setTimeout(computerTurn(), 2000);
+            setTimeout(computerTurn(), 5000);
+        }
+
+        //Minus a life
+        if (wildCardDiv.innerText === 'Minus a life') {
+            wildCardDescription.innerText = 'Minus a life';
+            life--;
+            displayLife.innerHTML = 'Life: ' + life;
+            wildCardDescription.innerText = 'Minus a life';
         }
 
     } else {
@@ -470,6 +480,7 @@ function writeHighScore() {
 
     currentHighScorePerson = localStorage.getItem('Person High Score');
     currentHighScore = localStorage.getItem('HighScore');
+    
     if (levels > currentHighScore) {
         currentHighScorePerson = localStorage.setItem('Person High Score', name);
         currentHighScore = localStorage.setItem('HighScore', levels);
