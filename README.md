@@ -1,4 +1,4 @@
-								#SIMON GAME
+								### SIMON GAME
 ------------------
 
 Simon Game is a memory game that requires the user to input the same sequence
