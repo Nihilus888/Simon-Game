@@ -440,11 +440,11 @@ const wildCardDescription = document.querySelector('#wildcard-description');
 
 function wildCard() {
 
-    const wildCards = ['Level skipped', 'Extra life gained', 'Push last element', 'Slow Down time', 'Minus a life', 'Instant death'];
+    const wildCards = ['Level skipped', 'Extra life gained', 'Minus a life', 'Instant death'];
     wildCardDiv.innerText = wildCards[Math.floor((Math.random() * wildCards.length))];
     console.log(wildCardDiv);
 
-    if (levels % 1 === 0) {
+    if (levels % 5 === 0) {
 
         //Skips a level immediately
         if (wildCardDiv.innerText === 'Level skipped') {
@@ -458,21 +458,6 @@ function wildCard() {
             console.log(life);
             displayLife.innerHTML = 'Life: ' + life;
             wildCardDescription.innerText = 'Extra life gained';
-        }
-
-        //Push last element into the array 
-        if (wildCardDiv.innerText === 'Push last element') {
-            wildCardDescription.innerText = 'Push last element';
-            lastElementComputer = computer[computer.length - 1];
-            if (computer.length - 1 === player.length) {
-                player.push(lastElementComputer);
-            }
-        }
-
-        //Slow Down Time
-        if (wildCardDiv.innerText === 'Slow Down time') {
-            wildCardDescription.innerText = 'Slow Down time';
-            setTimeout(computerTurn(), 5000);
         }
 
         //Minus a life
