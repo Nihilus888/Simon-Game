@@ -56,3 +56,6 @@ or you can use paste this github links pages into your browser
 2. Better styling and structuring
 3. More focus on UI/UX
 4. USE API for my motivational quotes (Hard to find one without a subscription
+
+### Project Link
+https://nihilus888.github.io/Simon-Game/
